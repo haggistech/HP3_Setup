@@ -52,9 +52,9 @@ cd RetroPie-Setup
 echo
 echo
 echo "Setting Autostarts..."
-cat > /etc/systemd/system/frontend-attractmode.service << EOL
+cat > /lib/systemd/system/frontend-attractmode.service << EOL
 [Unit]
-Description=Start Attract Mode
+Description=Run Attract Mode
 After=multi-user.target
 
 [Service]
@@ -65,7 +65,7 @@ WantedBy=multi-user.target
 EOL
 
 
-cat > /etc/systemd/system/frontend-retropie.service << EOL
+cat > /lib/systemd/system/frontend-retropie.service << EOL
 [Unit]
 Description=Start RetroPie
 After=network-online.target
