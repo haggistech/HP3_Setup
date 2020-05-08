@@ -11,12 +11,15 @@ cd /home/pi; mkdir develop
 
 echo "Installing dependencies..."
 apt update -y
+apt-get update
+apt-get upgrade -y
 apt-get install -y git cmake libflac-dev libogg-dev libvorbis-dev libavutil-dev libavcodec-dev libavformat-dev libavfilter-dev libswscale-dev libavresample-dev libopenal-dev libfreetype6-dev libudev-dev libjpeg-dev libudev-dev libfontconfig1-dev libglu1-mesa-dev libsfml-dev libxinerama-dev libcurl4-openssl-dev
+
+
 
 ################################
 ##### Install Attract Mode #####
 ################################
-
 
 echo
 echo
@@ -49,7 +52,7 @@ cd RetroPie-Setup
 echo
 echo
 echo "Setting Autostarts..."
-cat > /lib/systemd/system/frontend-attractmode.service << EOL
+cat > /etc/systemd/system/frontend-attractmode.service << EOL
 [Unit]
 Description=Start Attract Mode
 After=multi-user.target
@@ -62,7 +65,7 @@ WantedBy=multi-user.target
 EOL
 
 
-cat > /lib/systemd/system/frontend-retropie.service << EOL
+cat > /etc/systemd/system/frontend-retropie.service << EOL
 [Unit]
 Description=Start RetroPie
 After=network-online.target
@@ -221,6 +224,12 @@ EOL
 ##### Misc #####
 ################
 
+echo
+echo
+echo "Setting AutoLogin"
+wget https://raw.githubusercontent.com/RPi-Distro/raspi-config/master/autologin%40.service -o /lib/systemd/system/autologin%40.service
+systemctl daemon-reload
+systemctl enable autologin@.service
 echo
 echo
 echo "Fixing Permissions on Files..."
