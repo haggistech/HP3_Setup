@@ -13,7 +13,7 @@ echo "Installing dependencies..."
 apt update -y
 apt-get update
 apt-get upgrade -y
-apt-get install -y git xserver-org cmake libflac-dev libogg-dev libvorbis-dev libavutil-dev libavcodec-dev libavformat-dev libavfilter-dev libswscale-dev libavresample-dev libopenal-dev libfreetype6-dev libudev-dev libjpeg-dev libudev-dev libfontconfig1-dev libglu1-mesa-dev libsfml-dev libxinerama-dev libcurl4-openssl-dev
+apt-get install -y git xserver-xorg cmake libflac-dev libogg-dev libvorbis-dev libavutil-dev libavcodec-dev libavformat-dev libavfilter-dev libswscale-dev libavresample-dev libopenal-dev libfreetype6-dev libudev-dev libjpeg-dev libudev-dev libfontconfig1-dev libglu1-mesa-dev libsfml-dev libxinerama-dev libcurl4-openssl-dev
 
 
 
