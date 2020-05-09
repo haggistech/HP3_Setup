@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 
 ######################################
@@ -91,7 +91,7 @@ mkdir -p /home/pi/.attract/romlists
 mkdir -p /home/pi/.attract/Attract\ Mode\ Setup
 
 cat > /home/pi/.attract/Attract\ Mode\ Setup/Switch\ to\ AttractMode.sh << EOL
-!# /bin/bash
+#!/bin/bash
 echo "Switching to Attract Mode as Default boot"
 sudo systemctl disable frontend-retropie.service
 sudo systemctl enable frontend-attractmode.service
@@ -100,7 +100,7 @@ EOL
 
 
 cat > /home/pi/.attract/Attract\ Mode\ Setup/Switch\ to\ EmulationStation.sh << EOL
-!# /bin/bash
+#!/bin/bash
 echo "Switching to Attract Mode as Default boot"
 sudo systemctl disable frontend-attractmode.service
 sudo systemctl enable frontend-retropie.service
@@ -227,12 +227,21 @@ EOL
 echo
 echo
 echo "Setting AutoLogin"
-wget https://raw.githubusercontent.com/RPi-Distro/raspi-config/master/autologin%40.service -o /lib/systemd/system/autologin%40.service
-systemctl daemon-reload
-systemctl enable autologin@.service
+systemctl set-default multi-user.target
+ln -fs /lib/systemd/system/getty@.service /etc/systemd/system/getty.target.wants/getty@tty1.service
+cat > /etc/systemd/system/getty@tty1.service.d/autologin.conf << EOF
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin $USER --noclear %I \$TERM
+EOF
 echo
 echo
 echo "Fixing Permissions on Files..."
+chmod 755 /home/pi/.attract/attract.cfg /home/pi/.attract/romlists/* /home/pi/.attract/emulators/*
+echo
+echo
+echo "attract.cfg...."
+chown -R pi:pi /home/pi/.attract/attract.cfg 
 echo
 echo
 echo "Romlists...."
